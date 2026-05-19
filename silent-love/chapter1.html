@@ -1,0 +1,928 @@
+<!--
+========================================================
+GITHUB PAGES STRUCTURE
+========================================================
+
+your-repo/
+│
+├── index.html
+│
+├── assets/
+│   ├── audio/
+│   │   └── rain.mp3
+│   │
+│   └── images/
+│
+└── silent-love/
+    ├── chapter1.html
+    ├── chapter2.html
+    └── ...
+
+========================================================
+THIS FILE:
+silent-love/chapter1.html
+========================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Silent Love — Chapter 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ======================================================
+GLOBAL
+====================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    line-height:2;
+}
+
+/* ======================================================
+SCROLLBAR
+====================================================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0d0d0d;
+}
+
+::-webkit-scrollbar-thumb{
+    background:white;
+    border-radius:20px;
+}
+
+/* ======================================================
+LOADER
+====================================================== */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:black;
+    z-index:9999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transition:1s;
+}
+
+.loader h1{
+    font-size:60px;
+    font-family:'Cinzel',serif;
+    animation:pulse 2s infinite;
+}
+
+.loader p{
+    margin-top:15px;
+    color:#b5b5b5;
+}
+
+@keyframes pulse{
+
+0%{
+opacity:0.3;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+opacity:0.3;
+}
+
+}
+
+/* ======================================================
+PROGRESS BAR
+====================================================== */
+
+.progress-container{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:99999;
+    height:5px;
+}
+
+.progress-bar{
+    height:5px;
+    width:0%;
+    background:white;
+}
+
+/* ======================================================
+RAIN
+====================================================== */
+
+.rain{
+    position:fixed;
+    width:1px;
+    height:100px;
+    background:rgba(255,255,255,0.12);
+    top:-120px;
+    z-index:-1;
+    animation:rain linear infinite;
+}
+
+@keyframes rain{
+
+to{
+transform:translateY(120vh);
+}
+
+}
+
+/* ======================================================
+NAVBAR
+====================================================== */
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,0.35);
+    z-index:999;
+}
+
+.logo{
+    font-size:32px;
+    font-family:'Cinzel',serif;
+}
+
+.controls{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.controls button{
+
+padding:12px 18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+background:white;
+
+}
+
+.controls button:hover{
+transform:scale(1.05);
+}
+
+/* ======================================================
+HERO
+====================================================== */
+
+.hero{
+
+height:100vh;
+
+background:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.92)),
+url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2070&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+
+}
+
+.hero-content{
+max-width:900px;
+animation:fadeUp 2s;
+}
+
+.hero h1{
+font-size:90px;
+font-family:'Cinzel',serif;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:24px;
+color:#d5d5d5;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ======================================================
+STORY
+====================================================== */
+
+.story{
+max-width:950px;
+margin:auto;
+padding:100px 25px;
+}
+
+.chapter-title{
+text-align:center;
+margin-bottom:80px;
+}
+
+.chapter-title h2{
+font-size:58px;
+margin-bottom:15px;
+}
+
+.chapter-title p{
+color:#b8b8b8;
+}
+
+/* ======================================================
+TEXT
+====================================================== */
+
+.story p{
+
+font-size:22px;
+margin-bottom:35px;
+color:#ededed;
+
+opacity:0;
+transform:translateY(30px);
+
+animation:appear linear forwards;
+animation-timeline:view();
+animation-range:entry 0 cover 35%;
+
+}
+
+@keyframes appear{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ======================================================
+QUOTE
+====================================================== */
+
+.quote{
+font-size:34px;
+text-align:center;
+font-style:italic;
+color:#ffc0cb;
+margin:80px 0;
+}
+
+/* ======================================================
+GIFS
+====================================================== */
+
+.gif{
+margin:70px 0;
+}
+
+.gif img{
+width:100%;
+border-radius:25px;
+}
+
+/* ======================================================
+NEXT
+====================================================== */
+
+.next{
+text-align:center;
+margin-top:100px;
+}
+
+.next a{
+
+text-decoration:none;
+background:white;
+color:black;
+padding:18px 40px;
+border-radius:40px;
+font-weight:600;
+transition:0.3s;
+
+}
+
+.next a:hover{
+transform:scale(1.05);
+}
+
+/* ======================================================
+MOBILE
+====================================================== */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:50px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.chapter-title h2{
+font-size:40px;
+}
+
+.story p{
+font-size:19px;
+}
+
+.quote{
+font-size:27px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ======================================================
+LOADER
+====================================================== -->
+
+<div class="loader" id="loader">
+
+<h1>A Silent Love</h1>
+<p>Loading emotions...</p>
+
+</div>
+
+<!-- ======================================================
+PROGRESS BAR
+====================================================== -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- ======================================================
+NAVBAR
+====================================================== -->
+
+<div class="navbar">
+
+<div class="logo">
+Silent Love
+</div>
+
+<div class="controls">
+
+<button onclick="readStory()">
+🔊 Read
+</button>
+
+<button onclick="toggleLanguage()">
+🌐 Language
+</button>
+
+<button onclick="toggleMusic()">
+🎵 Music
+</button>
+
+</div>
+
+</div>
+
+<!-- ======================================================
+HERO
+====================================================== -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>
+A Silent Love
+</h1>
+
+<p>
+Part 1 • Chapter 1 • The Girl In The Rain
+</p>
+
+</div>
+
+</section>
+
+<!-- ======================================================
+STORY
+====================================================== -->
+
+<section class="story" id="story">
+
+<div class="chapter-title">
+
+<h2>
+The Girl In The Rain
+</h2>
+
+<p>
+Some people arrive silently and change your entire world.
+</p>
+
+</div>
+
+<div class="quote">
+"Some love stories begin with words.  
+Ours began with silence."
+</div>
+
+<p>
+Rain touched the city softly that evening.
+Not the loud kind of rain people run away from...
+but the quiet kind that makes lonely people feel understood.
+</p>
+
+<p>
+The entire college campus looked blurred behind silver droplets sliding endlessly through cold evening air.
+Students rushed through corridors protecting bags above their heads,
+laughing loudly,
+complaining about assignments,
+trying to survive another ordinary day.
+</p>
+
+<p>
+But for Arjun...
+nothing felt ordinary anymore.
+</p>
+
+<p>
+He sat beside the large library window,
+holding a book he hadn’t actually read for the past thirty minutes.
+His fingers rested between pages,
+yet his eyes stayed somewhere else entirely.
+</p>
+
+<p>
+Three tables away from him.
+</p>
+
+<p>
+She sat quietly near the rain-covered glass wall,
+softly flipping pages of a novel she probably wasn’t reading either.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif">
+
+</div>
+
+<p>
+Her name was Mira.
+</p>
+
+<p>
+She wore a simple white kurti slightly darkened by rainwater near the sleeves.
+Tiny droplets rested on her hair like crystals reflecting library lights.
+Every few minutes,
+she tucked loose strands behind her ear while staring outside the window as if searching for something only she could see.
+</p>
+
+<p>
+Arjun looked away immediately whenever she moved.
+Not because he didn’t want to see her...
+but because he was scared she might notice him staring.
+</p>
+
+<p>
+There are people who enter life loudly.
+People who demand attention.
+People who force the world to notice them.
+</p>
+
+<p>
+Mira was different.
+</p>
+
+<p>
+She entered rooms quietly...
+yet somehow changed the atmosphere completely.
+</p>
+
+<p>
+And maybe that silence is what connected them.
+Because Arjun was silent too.
+</p>
+
+<div class="quote">
+"The quietest hearts often carry the loudest storms."
+</div>
+
+<p>
+Outside,
+he looked normal.
+He laughed with friends.
+Submitted assignments.
+Attended lectures.
+Pretended life was stable.
+</p>
+
+<p>
+But inside?
+Inside he carried loneliness so old it had become part of him.
+</p>
+
+<p>
+He noticed tiny details about people.
+Especially sadness.
+</p>
+
+<p>
+And Mira carried sadness beautifully.
+</p>
+
+<p>
+Not dramatically.
+Not visibly.
+But hidden carefully behind tired smiles and calm eyes.
+</p>
+
+<p>
+Sometimes she stared outside windows for too long.
+Sometimes she smiled at jokes half a second late.
+Sometimes her eyes looked distant even when surrounded by people.
+</p>
+
+<p>
+Arjun noticed everything.
+</p>
+
+<p>
+And slowly...
+without conversations,
+without friendship,
+without permission...
+love began growing silently inside him.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif">
+
+</div>
+
+<p>
+Days passed.
+Then weeks.
+</p>
+
+<p>
+He started arriving at the library earlier just to sit near her usual table.
+Not too close.
+Not too far.
+Just enough to exist inside the same silence.
+</p>
+
+<p>
+Sometimes she drank coffee while reading.
+Sometimes she wrote random lines in a small black notebook.
+Sometimes she simply stared at rain for several minutes without moving.
+</p>
+
+<p>
+And every single time...
+Arjun wondered what kind of pain creates eyes like hers.
+</p>
+
+<p>
+One evening,
+the electricity suddenly went off inside the library.
+Darkness covered the room.
+Students complained loudly.
+Phone flashlights appeared everywhere.
+</p>
+
+<p>
+But Arjun noticed only one thing.
+</p>
+
+<p>
+Mira looked uncomfortable.
+Not dramatically afraid.
+Just quietly uneasy...
+as if darkness reminded her of memories she didn’t want to revisit.
+</p>
+
+<p>
+Without thinking,
+Arjun walked near her table and placed his small emergency lamp beside her books.
+</p>
+
+<p>
+He didn’t say anything.
+He simply left it there and started walking away.
+</p>
+
+<div class="quote">
+"Sometimes love begins in the smallest acts nobody else notices."
+</div>
+
+<p>
+Then he heard it.
+</p>
+
+<p>
+“Thank you.”
+</p>
+
+<p>
+The first word she had ever spoken to him.
+</p>
+
+<p>
+Arjun stopped walking.
+</p>
+
+<p>
+For a second,
+the noise of rain disappeared completely.
+</p>
+
+<p>
+He turned slightly.
+</p>
+
+<p>
+She smiled softly.
+Not a dramatic smile.
+Not a fake polite smile.
+A real one.
+The kind that stays inside your chest forever.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/xTiTnxpQ3ghPiB2Hp6/giphy.gif">
+
+</div>
+
+<p>
+That night,
+Arjun couldn’t sleep.
+</p>
+
+<p>
+Not because something extraordinary happened.
+But because sometimes,
+one small moment becomes enough to change an entire life.
+</p>
+
+<p>
+He replayed her voice repeatedly inside his mind.
+Soft.
+Gentle.
+Tired.
+Beautiful.
+</p>
+
+<p>
+Outside,
+rain continued touching the city through midnight silence.
+Inside,
+a silent love had finally taken its first breath.
+</p>
+
+<div class="quote">
+"And somewhere between rain,
+books,
+and silence...
+two lonely hearts had already started finding each other."
+</div>
+
+<!-- ADD MORE LONG STORY CONTINUATION BELOW -->
+<!-- YOU CAN CONTINUE ADDING <p> TAGS -->
+
+<div class="next">
+
+<a href="chapter2.html">
+Next Chapter →
+</a>
+
+</div>
+
+</section>
+
+<!-- ======================================================
+AUDIO
+====================================================== -->
+
+<audio id="bgMusic" loop>
+
+<source src="../assets/audio/rain.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+/* ======================================================
+LOADER
+====================================================== */
+
+window.addEventListener('load',()=>{
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.opacity='0';
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.display='none';
+
+},1000);
+
+},2000);
+
+});
+
+/* ======================================================
+PROGRESS BAR
+====================================================== */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+let scrolled=(winScroll/height)*100;
+
+document.getElementById("progressBar").style.width=scrolled+"%";
+
+};
+
+/* ======================================================
+READ ALOUD
+====================================================== */
+
+function readStory(){
+
+const story=document.getElementById('story').innerText;
+
+const speech=new SpeechSynthesisUtterance(story);
+
+speech.lang='en-US';
+
+speech.rate=0.92;
+
+speech.pitch=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+/* ======================================================
+LANGUAGE SWITCH
+====================================================== */
+
+let english=true;
+
+function toggleLanguage(){
+
+if(english){
+
+document.getElementById('story').innerHTML=`
+
+<div class="chapter-title">
+
+<h2>
+వర్షంలో కనిపించిన అమ్మాయి
+</h2>
+
+<p>
+కొంతమంది నిశ్శబ్దంగా వచ్చి జీవితాన్ని మార్చేస్తారు.
+</p>
+
+</div>
+
+<p>
+ఆ సాయంత్రం వర్షం నగరాన్ని మెల్లగా తాకుతోంది...
+</p>
+
+<p>
+అర్జున్ లైబ్రరీ కిటికీ పక్కన కూర్చున్నాడు...
+</p>
+
+<div class="quote">
+"కొన్ని ప్రేమ కథలు మాటలతో కాదు...
+నిశ్శబ్దంతో మొదలవుతాయి."
+</div>
+
+`;
+
+english=false;
+
+}else{
+
+location.reload();
+
+}
+
+}
+
+/* ======================================================
+MUSIC
+====================================================== */
+
+let playing=false;
+
+function toggleMusic(){
+
+const music=document.getElementById('bgMusic');
+
+if(!playing){
+
+music.play();
+playing=true;
+
+}else{
+
+music.pause();
+playing=false;
+
+}
+
+}
+
+/* ======================================================
+RAIN EFFECT
+====================================================== */
+
+for(let i=0;i<180;i++){
+
+let rain=document.createElement('div');
+
+rain.classList.add('rain');
+
+rain.style.left=Math.random()*window.innerWidth+'px';
+
+rain.style.animationDuration=(Math.random()*1+0.5)+'s';
+
+rain.style.opacity=Math.random();
+
+rain.style.height=(Math.random()*100+20)+'px';
+
+document.body.appendChild(rain);
+
+}
+
+</script>
+
+</body>
+</html>
