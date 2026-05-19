@@ -1,0 +1,940 @@
+<!--
+FILE:
+silent-love/chapter2.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Silent Love — Chapter 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#050505;
+color:white;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+line-height:2;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0c0c0c;
+}
+
+::-webkit-scrollbar-thumb{
+background:white;
+border-radius:20px;
+}
+
+/* LOADER */
+
+.loader{
+position:fixed;
+inset:0;
+background:black;
+z-index:9999;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+transition:1s;
+}
+
+.loader h1{
+font-size:55px;
+font-family:'Cinzel',serif;
+animation:pulse 2s infinite;
+}
+
+.loader p{
+margin-top:15px;
+color:#adadad;
+}
+
+@keyframes pulse{
+
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+
+}
+
+/* PROGRESS */
+
+.progress-container{
+position:fixed;
+top:0;
+width:100%;
+height:5px;
+z-index:99999;
+}
+
+.progress-bar{
+height:5px;
+width:0%;
+background:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+backdrop-filter:blur(10px);
+background:rgba(0,0,0,0.35);
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-family:'Cinzel',serif;
+}
+
+.controls{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.controls button{
+
+padding:12px 18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+background:white;
+transition:0.3s;
+
+}
+
+.controls button:hover{
+transform:scale(1.05);
+}
+
+/* HERO */
+
+.hero{
+
+height:100vh;
+
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.92)),
+url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+
+}
+
+.hero-content{
+max-width:900px;
+animation:fadeUp 2s;
+}
+
+.hero h1{
+font-size:88px;
+font-family:'Cinzel',serif;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:24px;
+color:#d7d7d7;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* STORY */
+
+.story{
+max-width:950px;
+margin:auto;
+padding:100px 25px;
+}
+
+.chapter-title{
+text-align:center;
+margin-bottom:80px;
+}
+
+.chapter-title h2{
+font-size:58px;
+margin-bottom:15px;
+}
+
+.chapter-title p{
+color:#bcbcbc;
+}
+
+/* PARAGRAPHS */
+
+.story p{
+
+font-size:22px;
+margin-bottom:35px;
+color:#ececec;
+
+opacity:0;
+transform:translateY(30px);
+
+animation:appear linear forwards;
+animation-timeline:view();
+animation-range:entry 0 cover 35%;
+
+}
+
+@keyframes appear{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* QUOTE */
+
+.quote{
+font-size:34px;
+text-align:center;
+font-style:italic;
+color:#ffc0cb;
+margin:80px 0;
+}
+
+/* GIF */
+
+.gif{
+margin:70px 0;
+}
+
+.gif img{
+width:100%;
+border-radius:25px;
+}
+
+/* NEXT */
+
+.next{
+text-align:center;
+margin-top:100px;
+}
+
+.next a{
+
+text-decoration:none;
+background:white;
+color:black;
+padding:18px 40px;
+border-radius:40px;
+font-weight:600;
+transition:0.3s;
+
+}
+
+.next a:hover{
+transform:scale(1.05);
+}
+
+/* RAIN */
+
+.rain{
+position:fixed;
+width:1px;
+height:100px;
+background:rgba(255,255,255,0.12);
+top:-120px;
+z-index:-1;
+animation:rain linear infinite;
+}
+
+@keyframes rain{
+
+to{
+transform:translateY(120vh);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:50px;
+}
+
+.story p{
+font-size:19px;
+}
+
+.chapter-title h2{
+font-size:40px;
+}
+
+.quote{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+<h1>A Silent Love</h1>
+<p>Opening memories...</p>
+
+</div>
+
+<!-- PROGRESS -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Silent Love
+</div>
+
+<div class="controls">
+
+<button onclick="toggleLanguage()">
+🌐 Language
+</button>
+
+<button onclick="toggleMusic()">
+🎵 Music
+</button>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>
+A Silent Love
+</h1>
+
+<p>
+Part 1 • Chapter 2 • The Library Window
+</p>
+
+</div>
+
+</section>
+
+<!-- STORY -->
+
+<section class="story" id="story">
+
+<div class="chapter-title">
+
+<h2>
+The Library Window
+</h2>
+
+<p>
+Sometimes people fall in love long before they understand it.
+</p>
+
+</div>
+
+<div class="quote">
+"He didn’t realize he was waiting for her...
+until she became the favorite part of his day."
+</div>
+
+<p>
+Morning sunlight entered the college library softly through tall glass windows,
+painting long golden shadows across old wooden tables.
+The smell of wet books,
+coffee,
+and fresh rain still floated quietly through the silent room.
+</p>
+
+<p>
+Arjun arrived earlier than usual that day.
+Not because he had assignments.
+Not because exams were close.
+And definitely not because he suddenly cared about reading economics at eight in the morning.
+</p>
+
+<p>
+He arrived because somewhere deep inside him,
+a quiet hope had already formed.
+</p>
+
+<p>
+Maybe she would come again.
+</p>
+
+<p>
+And somehow,
+that thought alone had become enough to change his entire routine.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif">
+
+</div>
+
+<p>
+He sat at the same table near the large window.
+The same place from yesterday.
+The same angle where he could see the entrance without making it obvious.
+</p>
+
+<p>
+Outside,
+students crossed campus carrying umbrellas under cloudy skies.
+Inside,
+the ticking wall clock sounded louder than usual.
+</p>
+
+<p>
+9:03 AM.
+</p>
+
+<p>
+She still hadn’t arrived.
+</p>
+
+<p>
+Arjun opened a random book and pretended to read.
+But every few seconds,
+his eyes moved toward the entrance again.
+</p>
+
+<p>
+Then finally...
+the glass door opened.
+</p>
+
+<p>
+And there she was.
+</p>
+
+<p>
+Mira stepped inside quietly,
+holding two books close to her chest.
+Her hair looked slightly messy from the morning wind.
+A few tiny rain droplets still rested near her sleeves.
+</p>
+
+<p>
+Arjun immediately looked down at his book,
+pretending he hadn’t noticed.
+</p>
+
+<p>
+But his heartbeat had already betrayed him.
+</p>
+
+<div class="quote">
+"Sometimes hearts react before minds even understand what’s happening."
+</div>
+
+<p>
+She walked toward her usual table.
+Then paused.
+</p>
+
+<p>
+For one brief second,
+her eyes moved toward him.
+</p>
+
+<p>
+And she smiled.
+</p>
+
+<p>
+Not fully.
+Just softly.
+Just enough to make his entire chest feel strangely warm.
+</p>
+
+<p>
+Arjun stared at the same page for almost five minutes after that.
+Without understanding a single word.
+</p>
+
+<p>
+Because now something had changed.
+</p>
+
+<p>
+Yesterday,
+they were strangers.
+</p>
+
+<p>
+Today,
+they were strangers who shared a smile.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+
+</div>
+
+<p>
+And somehow...
+that felt dangerously important.
+</p>
+
+<p>
+Hours passed slowly.
+Rain continued tapping gently against the windows while silence wrapped around the library like soft music.
+</p>
+
+<p>
+Mira occasionally wrote something inside her small black notebook.
+Every time she finished writing,
+she stared outside for several seconds before continuing again.
+</p>
+
+<p>
+Arjun couldn’t stop wondering what she wrote about.
+</p>
+
+<p>
+Poetry?
+Memories?
+Someone she missed?
+</p>
+
+<p>
+Or maybe...
+things she could never say out loud.
+</p>
+
+<p>
+Because he understood that feeling.
+</p>
+
+<p>
+Some emotions become too heavy for conversations.
+So people bury them inside notebooks,
+songs,
+and midnight thoughts instead.
+</p>
+
+<div class="quote">
+"Lonely people often recognize loneliness in each other without needing words."
+</div>
+
+<p>
+Around noon,
+the library became more crowded.
+Students whispered across tables.
+Phone vibrations echoed occasionally.
+Pages turned endlessly.
+</p>
+
+<p>
+Then suddenly,
+a strong cold wind entered through the slightly open window near Mira’s seat.
+</p>
+
+<p>
+Loose papers flew across the floor.
+</p>
+
+<p>
+One notebook slipped from her table and landed near Arjun’s chair.
+</p>
+
+<p>
+He picked it up carefully.
+</p>
+
+<p>
+For a moment,
+their fingers touched while she took it back.
+</p>
+
+<p>
+Such a small thing.
+Such a tiny moment.
+</p>
+
+<p>
+Yet somehow,
+it stayed inside him like electricity.
+</p>
+
+<p>
+“Thank you,” she whispered again.
+</p>
+
+<p>
+This time,
+her voice sounded softer.
+More comfortable.
+</p>
+
+<p>
+Arjun nodded quietly,
+trying very hard not to look nervous.
+</p>
+
+<p>
+But Mira noticed anyway.
+</p>
+
+<p>
+And surprisingly...
+she smiled again.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif">
+
+</div>
+
+<p>
+That smile ruined him completely.
+</p>
+
+<p>
+Because there are certain people who don’t just enter your life.
+They slowly begin living inside your thoughts.
+</p>
+
+<p>
+And Mira had already started becoming impossible to ignore.
+</p>
+
+<p>
+Even after she left the library that evening,
+her presence remained everywhere.
+</p>
+
+<p>
+On the empty chair across the room.
+Inside unfinished silence.
+Between raindrops touching the glass window.
+</p>
+
+<p>
+Arjun stayed there long after sunset,
+pretending to study while secretly replaying every tiny interaction repeatedly inside his mind.
+</p>
+
+<p>
+The smile.
+The voice.
+The accidental touch.
+The way her eyes looked tired and beautiful at the same time.
+</p>
+
+<div class="quote">
+"Love rarely arrives dramatically.
+Sometimes it enters quietly...
+through repeated little moments your heart refuses to forget."
+</div>
+
+<p>
+Outside,
+the rain slowly became heavier.
+</p>
+
+<p>
+The entire city looked drowned in silver lights and wet roads.
+Street lamps reflected beautifully through water-covered streets while distant thunder echoed somewhere beyond the dark clouds.
+</p>
+
+<p>
+Arjun finally packed his bag and started walking toward the exit.
+</p>
+
+<p>
+But near the library gate,
+he suddenly stopped.
+</p>
+
+<p>
+Because standing under the roof outside...
+was Mira.
+</p>
+
+<p>
+She looked worried.
+</p>
+
+<p>
+She searched through her bag repeatedly as rain poured heavily only a few feet away.
+</p>
+
+<p>
+Then Arjun realized.
+</p>
+
+<p>
+She didn’t have an umbrella.
+</p>
+
+<p>
+For several seconds,
+he stood frozen.
+</p>
+
+<p>
+His mind screamed a hundred different thoughts.
+</p>
+
+<p>
+Should he help?
+Would it feel awkward?
+What if she says no?
+What if she feels uncomfortable?
+</p>
+
+<p>
+But before fear could stop him,
+his feet moved first.
+</p>
+
+<p>
+Slowly,
+he walked toward her.
+</p>
+
+<p>
+“Mira...”
+</p>
+
+<p>
+The first time he had ever spoken her name aloud.
+</p>
+
+<div class="quote">
+"And suddenly...
+the silence between them no longer felt empty."
+</div>
+
+<div class="next">
+
+<a href="chapter3.html">
+Next Chapter →
+</a>
+
+</div>
+
+</section>
+
+<!-- AUDIO -->
+
+<audio id="bgMusic" loop>
+
+<source src="../assets/audio/rain.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener('load',()=>{
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.opacity='0';
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.display='none';
+
+},1000);
+
+},2000);
+
+});
+
+/* PROGRESS */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+let scrolled=(winScroll/height)*100;
+
+document.getElementById("progressBar").style.width=scrolled+"%";
+
+};
+
+/* READ */
+
+function readStory(){
+
+const story=document.getElementById('story').innerText;
+
+const speech=new SpeechSynthesisUtterance(story);
+
+speech.lang='en-US';
+
+speech.rate=0.92;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+/* MUSIC */
+
+let playing=false;
+
+function toggleMusic(){
+
+const music=document.getElementById('bgMusic');
+
+if(!playing){
+
+music.play();
+playing=true;
+
+}else{
+
+music.pause();
+playing=false;
+
+}
+
+}
+
+/* LANGUAGE */
+
+let english=true;
+
+function toggleLanguage(){
+
+if(english){
+
+document.getElementById('story').innerHTML=`
+
+<div class="chapter-title">
+
+<h2>
+లైబ్రరీ కిటికీ
+</h2>
+
+<p>
+కొన్ని ప్రేమలు అర్థం కాకముందే మొదలవుతాయి.
+</p>
+
+</div>
+
+<p>
+ఆ ఉదయం లైబ్రరీలో సూర్యకాంతి మెల్లగా పడుతోంది...
+</p>
+
+<div class="quote">
+"ఆమె కోసం ఎదురు చూస్తున్నానని అతనికి తెలియదు...
+ఆమె అతని రోజులో ముఖ్యమైన భాగమయ్యే వరకు."
+</div>
+
+`;
+
+english=false;
+
+}else{
+
+location.reload();
+
+}
+
+}
+
+/* RAIN */
+
+for(let i=0;i<170;i++){
+
+let rain=document.createElement('div');
+
+rain.classList.add('rain');
+
+rain.style.left=Math.random()*window.innerWidth+'px';
+
+rain.style.animationDuration=(Math.random()*1+0.5)+'s';
+
+rain.style.opacity=Math.random();
+
+rain.style.height=(Math.random()*100+20)+'px';
+
+document.body.appendChild(rain);
+
+}
+
+</script>
+
+</body>
+</html>
