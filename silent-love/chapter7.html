@@ -1,0 +1,988 @@
+<!--
+FILE:
+silent-love/chapter7.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Silent Love — Chapter 7</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#040404;
+color:white;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+line-height:2;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0c0c0c;
+}
+
+::-webkit-scrollbar-thumb{
+background:white;
+border-radius:20px;
+}
+
+/* LOADER */
+
+.loader{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+transition:1s;
+}
+
+.loader h1{
+font-size:58px;
+font-family:'Cinzel',serif;
+animation:pulse 2s infinite;
+}
+
+.loader p{
+margin-top:15px;
+color:#b8b8b8;
+}
+
+@keyframes pulse{
+
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+
+}
+
+/* PROGRESS */
+
+.progress-container{
+position:fixed;
+top:0;
+width:100%;
+height:5px;
+z-index:999999;
+}
+
+.progress-bar{
+height:5px;
+width:0%;
+background:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.35);
+z-index:9999;
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.logo{
+font-size:32px;
+font-family:'Cinzel',serif;
+}
+
+.controls{
+display:flex;
+gap:15px;
+}
+
+.controls button{
+
+padding:12px 20px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+background:white;
+
+}
+
+.controls button:hover{
+transform:scale(1.05);
+}
+
+/* HERO */
+
+.hero{
+
+height:100vh;
+
+background:
+linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.93)),
+url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+
+}
+
+.hero-content{
+max-width:900px;
+animation:fadeUp 2s;
+}
+
+.hero h1{
+font-size:92px;
+font-family:'Cinzel',serif;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:24px;
+color:#d7d7d7;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* STORY */
+
+.story{
+max-width:950px;
+margin:auto;
+padding:100px 25px;
+}
+
+.chapter-title{
+text-align:center;
+margin-bottom:80px;
+}
+
+.chapter-title h2{
+font-size:58px;
+margin-bottom:15px;
+}
+
+.chapter-title p{
+color:#bababa;
+}
+
+/* TEXT */
+
+.story p{
+
+font-size:22px;
+margin-bottom:35px;
+color:#ededed;
+
+opacity:0;
+transform:translateY(30px);
+
+animation:appear linear forwards;
+animation-timeline:view();
+animation-range:entry 0 cover 35%;
+
+}
+
+@keyframes appear{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* QUOTE */
+
+.quote{
+font-size:34px;
+text-align:center;
+font-style:italic;
+color:#ffc0cb;
+margin:80px 0;
+}
+
+/* GIF */
+
+.gif{
+margin:70px 0;
+}
+
+.gif img{
+width:100%;
+border-radius:24px;
+}
+
+/* NEXT */
+
+.next{
+text-align:center;
+margin-top:100px;
+}
+
+.next a{
+
+text-decoration:none;
+background:white;
+color:black;
+padding:18px 40px;
+border-radius:40px;
+font-weight:600;
+transition:0.3s;
+
+}
+
+.next a:hover{
+transform:scale(1.05);
+}
+
+/* RAIN */
+
+.rain{
+position:fixed;
+width:1px;
+height:100px;
+background:rgba(255,255,255,0.12);
+top:-120px;
+z-index:-1;
+animation:rain linear infinite;
+}
+
+@keyframes rain{
+
+to{
+transform:translateY(120vh);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:50px;
+}
+
+.story p{
+font-size:19px;
+}
+
+.chapter-title h2{
+font-size:40px;
+}
+
+.quote{
+font-size:27px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+<h1>A Silent Love</h1>
+<p>Some scars hide behind smiles...</p>
+
+</div>
+
+<!-- PROGRESS -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Silent Love
+</div>
+
+<div class="controls">
+
+<button onclick="readStory()">
+🔊 Read Aloud
+</button>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<p>
+PART 1 • THE BEGINNING OF SILENCE
+</p>
+
+<h1>
+Chapter 7
+</h1>
+
+<p>
+The Weight Behind Her Smile
+</p>
+
+</div>
+
+</section>
+
+<!-- STORY -->
+
+<section class="story" id="story">
+
+<div class="chapter-title">
+
+<h2>
+The Weight Behind Her Smile
+</h2>
+
+<p>
+Sometimes people smile beautifully because they learned how to hide pain carefully.
+</p>
+
+</div>
+
+<div class="quote">
+"The saddest people often become experts at looking okay."
+</div>
+
+<p>
+The midnight conversations continued almost every day after that.
+</p>
+
+<p>
+Slowly,
+without realizing it,
+Arjun and Mira had started becoming emotionally woven into each other’s routines.
+</p>
+
+<p>
+Good morning texts.
+Late-night conversations.
+Tiny updates throughout the day.
+Shared songs.
+Random pictures of rain.
+</p>
+
+<p>
+And somehow...
+every little thing began mattering.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/l3vR4CdLInXOhr3rO/giphy.gif">
+
+</div>
+
+<p>
+Arjun started noticing changes inside himself too.
+</p>
+
+<p>
+His mood depended on her replies now.
+</p>
+
+<p>
+When Mira laughed,
+his entire day felt lighter.
+</p>
+
+<p>
+When she sounded distant,
+something inside him became restless immediately.
+</p>
+
+<p>
+And honestly...
+that scared him.
+</p>
+
+<p>
+Because he had spent years protecting himself emotionally.
+</p>
+
+<p>
+Yet Mira entered his life so quietly that he never even noticed the walls falling apart.
+</p>
+
+<div class="quote">
+"Love becomes dangerous the moment another person starts affecting your peace."
+</div>
+
+<p>
+One cloudy afternoon,
+Arjun waited near the bench at Block C holding two paper cups of coffee.
+</p>
+
+<p>
+Rain clouds covered the sky heavily while cold wind moved softly through trees around campus.
+</p>
+
+<p>
+Usually Mira arrived early.
+</p>
+
+<p>
+But today...
+she was late.
+</p>
+
+<p>
+Five minutes.
+Ten minutes.
+Twenty.
+</p>
+
+<p>
+His phone remained silent.
+</p>
+
+<p>
+A strange nervousness slowly formed inside his chest.
+</p>
+
+<p>
+Then finally,
+he saw her walking toward him from the distance.
+</p>
+
+<p>
+But something felt different immediately.
+</p>
+
+<p>
+Her steps looked slower.
+Her eyes looked tired.
+And the soft warmth she normally carried seemed absent somehow.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/3orieUe6ejxSFxYCXe/giphy.gif">
+
+</div>
+
+<p>
+“You okay?” Arjun asked quietly.
+</p>
+
+<p>
+Mira forced a smile.
+</p>
+
+<p>
+“Yeah.”
+</p>
+
+<p>
+Too quickly.
+Too automatically.
+</p>
+
+<p>
+Arjun noticed immediately.
+</p>
+
+<p>
+Because people who are actually okay don’t answer like that.
+</p>
+
+<p>
+They sat together beneath the old tree while distant thunder echoed softly across dark skies.
+</p>
+
+<p>
+For the first time in weeks,
+their silence felt heavy.
+</p>
+
+<p>
+Mira stared at the coffee cup in her hands quietly.
+</p>
+
+<p>
+Then after several minutes,
+she suddenly spoke.
+</p>
+
+<p>
+“Do you ever feel emotionally tired?”
+</p>
+
+<p>
+Arjun looked at her carefully.
+</p>
+
+<p>
+“All the time.”
+</p>
+
+<p>
+She nodded faintly.
+</p>
+
+<p>
+“Me too.”
+</p>
+
+<div class="quote">
+"Sometimes people aren’t sad.
+They’re just exhausted from carrying too much for too long."
+</div>
+
+<p>
+Cold wind moved through the trees around them while students crossed distant pathways beneath umbrellas.
+</p>
+
+<p>
+Mira stayed unusually quiet.
+</p>
+
+<p>
+Then suddenly,
+she laughed softly to herself.
+</p>
+
+<p>
+“You know what’s funny?”
+</p>
+
+<p>
+“What?”
+</p>
+
+<p>
+“I used to think if I acted okay long enough...
+I’d actually become okay.”
+</p>
+
+<p>
+The sentence hit Arjun painfully hard.
+</p>
+
+<p>
+Because he understood exactly what she meant.
+</p>
+
+<p>
+Some people survive by pretending.
+</p>
+
+<p>
+Pretending they’re fine.
+Pretending they’re healing.
+Pretending loneliness doesn’t hurt anymore.
+</p>
+
+<p>
+Until eventually...
+the pretending becomes permanent.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/l378khQxt68syiWJy/giphy.gif">
+
+</div>
+
+<p>
+Mira looked down quietly before speaking again.
+</p>
+
+<p>
+“My mother called yesterday.”
+</p>
+
+<p>
+Arjun stayed silent,
+allowing her space.
+</p>
+
+<p>
+“She wants me to move back after graduation.”
+</p>
+
+<p>
+Something about her voice felt broken beneath the calmness.
+</p>
+
+<p>
+“But you don’t want to?”
+</p>
+
+<p>
+Mira smiled weakly.
+</p>
+
+<p>
+“I don’t know what I want anymore.”
+</p>
+
+<p>
+Rain finally started falling softly around them.
+Tiny droplets touched the bench,
+the pathways,
+the leaves above their heads.
+</p>
+
+<p>
+Yet neither moved away.
+</p>
+
+<div class="quote">
+"Sometimes rain feels comforting because it matches the heaviness inside your chest."
+</div>
+
+<p>
+For several seconds,
+the world around them became quiet except for rainfall.
+</p>
+
+<p>
+Then Mira suddenly whispered:
+</p>
+
+<p>
+“I’m scared of getting attached to people.”
+</p>
+
+<p>
+Arjun’s heartbeat slowed painfully.
+</p>
+
+<p>
+Because somewhere deep inside...
+he already knew what she meant.
+</p>
+
+<p>
+People leave.
+</p>
+
+<p>
+People change.
+</p>
+
+<p>
+People become memories unexpectedly.
+</p>
+
+<p>
+And maybe Mira had already experienced enough loss to fear closeness itself.
+</p>
+
+<p>
+Arjun looked at her quietly before speaking softly.
+</p>
+
+<p>
+“Not everyone leaves.”
+</p>
+
+<p>
+Mira turned toward him slowly.
+</p>
+
+<p>
+Her eyes looked vulnerable for the first time since he met her.
+</p>
+
+<p>
+Then she asked the question almost like a child afraid of disappointment.
+</p>
+
+<p>
+“How do you know?”
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/xTiTnMhJTwNHChdTZS/giphy.gif">
+
+</div>
+
+<p>
+Arjun opened his mouth to answer.
+</p>
+
+<p>
+But nothing came out.
+</p>
+
+<p>
+Because honestly...
+he didn’t know.
+</p>
+
+<p>
+And maybe that was the terrifying part about love.
+</p>
+
+<p>
+There were no guarantees.
+</p>
+
+<p>
+No promises.
+No certainty.
+</p>
+
+<p>
+Just feelings growing stronger despite knowing heartbreak was always possible.
+</p>
+
+<div class="quote">
+"To love someone is to give them the power to hurt you and trust they won’t."
+</div>
+
+<p>
+Rain became heavier around them.
+</p>
+
+<p>
+Mira slowly rested her head against the back of the bench while closing her eyes briefly.
+</p>
+
+<p>
+She looked tired.
+Not physically.
+Emotionally.
+</p>
+
+<p>
+And suddenly,
+more than anything else,
+Arjun wanted to protect her from every sadness she carried silently inside herself.
+</p>
+
+<p>
+That realization terrified him.
+</p>
+
+<p>
+Because this was no longer a crush.
+</p>
+
+<p>
+No longer attraction.
+</p>
+
+<p>
+This was becoming love.
+Real love.
+</p>
+
+<p>
+The dangerous kind that changes people permanently.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/26ufcYAkp8e66vanu/giphy.gif">
+
+</div>
+
+<p>
+As evening slowly darkened around campus,
+Mira finally opened her eyes again.
+</p>
+
+<p>
+Then softly,
+almost like a confession,
+she whispered:
+</p>
+
+<p>
+“I think you’re the only person who actually sees me.”
+</p>
+
+<p>
+Arjun forgot how to breathe for a second.
+</p>
+
+<p>
+Because some sentences don’t just touch your heart.
+</p>
+
+<p>
+They stay there forever.
+</p>
+
+<div class="quote">
+"Some people enter your life quietly...
+then suddenly become impossible to lose."
+</div>
+
+<div class="next">
+
+<a href="chapter8.html">
+Next Chapter →
+</a>
+
+</div>
+
+</section>
+
+<!-- AUDIO -->
+
+<audio id="bgMusic" autoplay loop>
+
+<source src="../assets/audio/rain.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener('load',()=>{
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.opacity='0';
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.display='none';
+
+},1000);
+
+},2000);
+
+/* AUTO MUSIC */
+
+const music=document.getElementById('bgMusic');
+
+music.volume=0.4;
+
+music.play().catch(()=>{
+
+document.addEventListener('click',()=>{
+
+music.play();
+
+},{once:true});
+
+});
+
+});
+
+/* PROGRESS BAR */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+let scrolled=(winScroll/height)*100;
+
+document.getElementById("progressBar").style.width=scrolled+"%";
+
+};
+
+/* READ ALOUD */
+
+function readStory(){
+
+const story=document.getElementById('story').innerText;
+
+const speech=new SpeechSynthesisUtterance(story);
+
+speech.lang='en-US';
+
+speech.rate=0.92;
+
+speech.pitch=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+/* RAIN EFFECT */
+
+for(let i=0;i<180;i++){
+
+let rain=document.createElement('div');
+
+rain.classList.add('rain');
+
+rain.style.left=Math.random()*window.innerWidth+'px';
+
+rain.style.animationDuration=(Math.random()*1+0.5)+'s';
+
+rain.style.opacity=Math.random();
+
+rain.style.height=(Math.random()*100+20)+'px';
+
+document.body.appendChild(rain);
+
+}
+
+</script>
+
+</body>
+</html>

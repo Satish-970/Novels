@@ -1,0 +1,915 @@
+<!--
+FILE:
+silent-love/chapter4.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Silent Love — Chapter 4</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#040404;
+color:white;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+line-height:2;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0c0c0c;
+}
+
+::-webkit-scrollbar-thumb{
+background:white;
+border-radius:20px;
+}
+
+/* LOADER */
+
+.loader{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+transition:1s;
+}
+
+.loader h1{
+font-size:58px;
+font-family:'Cinzel',serif;
+animation:pulse 2s infinite;
+}
+
+.loader p{
+margin-top:15px;
+color:#b8b8b8;
+}
+
+@keyframes pulse{
+
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+
+}
+
+/* PROGRESS */
+
+.progress-container{
+position:fixed;
+top:0;
+width:100%;
+height:5px;
+z-index:999999;
+}
+
+.progress-bar{
+height:5px;
+width:0%;
+background:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.35);
+z-index:9999;
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.logo{
+font-size:32px;
+font-family:'Cinzel',serif;
+}
+
+.controls{
+display:flex;
+gap:15px;
+}
+
+.controls button{
+
+padding:12px 20px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+background:white;
+
+}
+
+.controls button:hover{
+transform:scale(1.05);
+}
+
+/* HERO */
+
+.hero{
+
+height:100vh;
+
+background:
+linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.93)),
+url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+
+}
+
+.hero-content{
+max-width:900px;
+animation:fadeUp 2s;
+}
+
+.hero h1{
+font-size:92px;
+font-family:'Cinzel',serif;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:24px;
+color:#d7d7d7;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* STORY */
+
+.story{
+max-width:950px;
+margin:auto;
+padding:100px 25px;
+}
+
+.chapter-title{
+text-align:center;
+margin-bottom:80px;
+}
+
+.chapter-title h2{
+font-size:58px;
+margin-bottom:15px;
+}
+
+.chapter-title p{
+color:#bababa;
+}
+
+/* TEXT */
+
+.story p{
+
+font-size:22px;
+margin-bottom:35px;
+color:#ededed;
+
+opacity:0;
+transform:translateY(30px);
+
+animation:appear linear forwards;
+animation-timeline:view();
+animation-range:entry 0 cover 35%;
+
+}
+
+@keyframes appear{
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* QUOTES */
+
+.quote{
+font-size:34px;
+text-align:center;
+font-style:italic;
+color:#ffc0cb;
+margin:80px 0;
+}
+
+/* GIF */
+
+.gif{
+margin:70px 0;
+}
+
+.gif img{
+width:100%;
+border-radius:24px;
+}
+
+/* NEXT */
+
+.next{
+text-align:center;
+margin-top:100px;
+}
+
+.next a{
+
+text-decoration:none;
+background:white;
+color:black;
+padding:18px 40px;
+border-radius:40px;
+font-weight:600;
+transition:0.3s;
+
+}
+
+.next a:hover{
+transform:scale(1.05);
+}
+
+/* RAIN */
+
+.rain{
+position:fixed;
+width:1px;
+height:100px;
+background:rgba(255,255,255,0.12);
+top:-120px;
+z-index:-1;
+animation:rain linear infinite;
+}
+
+@keyframes rain{
+
+to{
+transform:translateY(120vh);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:50px;
+}
+
+.story p{
+font-size:19px;
+}
+
+.chapter-title h2{
+font-size:40px;
+}
+
+.quote{
+font-size:27px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+<h1>A Silent Love</h1>
+<p>One more memory...</p>
+
+</div>
+
+<!-- PROGRESS -->
+
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+Silent Love
+</div>
+
+<div class="controls">
+
+<button onclick="readStory()">
+🔊 Read Aloud
+</button>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>
+A Silent Love
+</h1>
+
+<p>
+Part 1 • Chapter 4 • Coffee and Confessions
+</p>
+
+</div>
+
+</section>
+
+<!-- STORY -->
+
+<section class="story" id="story">
+
+<div class="chapter-title">
+
+<h2>
+Coffee and Confessions
+</h2>
+
+<p>
+Sometimes people reveal pieces of themselves accidentally.
+</p>
+
+</div>
+
+<div class="quote">
+"And somewhere between warm tea and quiet rain...
+their silence slowly became comfort."
+</div>
+
+<p>
+The small roadside tea stall glowed softly beneath golden lights while rain continued falling beyond the thin metal roof above them.
+</p>
+
+<p>
+Steam rose gently from their cups,
+mixing with cold evening air and old songs playing quietly from a tiny radio near the counter.
+</p>
+
+<p>
+Arjun still couldn’t believe this was real.
+</p>
+
+<p>
+Just a few days ago,
+Mira was only someone he secretly noticed across library tables.
+</p>
+
+<p>
+Now she sat directly in front of him,
+holding a warm cup with both hands while raindrops reflected softly inside her eyes.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/l0HlRnAWXxn0MhKLK/giphy.gif">
+
+</div>
+
+<p>
+“You’re very quiet,” Mira suddenly said.
+</p>
+
+<p>
+Arjun blinked slightly,
+caught off guard.
+</p>
+
+<p>
+“Is that bad?”
+</p>
+
+<p>
+She smiled faintly.
+</p>
+
+<p>
+“No.”
+</p>
+
+<p>
+Then after a brief pause,
+she added softly:
+</p>
+
+<p>
+“Quiet people usually notice more.”
+</p>
+
+<p>
+That sentence stayed inside him immediately.
+</p>
+
+<p>
+Because nobody had ever understood him that quickly before.
+</p>
+
+<div class="quote">
+"Some connections feel strangely familiar...
+as if two souls already knew each other long before meeting."
+</div>
+
+<p>
+Outside,
+cars moved slowly through rain-covered roads while cold wind occasionally entered the tea stall carrying the smell of wet earth.
+</p>
+
+<p>
+Mira looked outside silently for several seconds before speaking again.
+</p>
+
+<p>
+“Do you ever feel tired around people?”
+</p>
+
+<p>
+Arjun looked at her carefully.
+</p>
+
+<p>
+The question sounded casual.
+But her eyes didn’t.
+</p>
+
+<p>
+“Sometimes,” he answered honestly.
+</p>
+
+<p>
+She nodded slowly like someone hearing confirmation instead of conversation.
+</p>
+
+<p>
+“I thought it was only me.”
+</p>
+
+<p>
+For a moment,
+neither of them spoke again.
+</p>
+
+<p>
+But strangely...
+the silence between them no longer felt empty.
+</p>
+
+<p>
+It felt safe.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif">
+
+</div>
+
+<p>
+Rain became heavier again,
+creating soft noise around the tiny shop.
+</p>
+
+<p>
+Mira gently traced circles along the edge of her cup while staring down quietly.
+</p>
+
+<p>
+Then suddenly,
+she spoke without looking at him.
+</p>
+
+<p>
+“My parents used to love rain.”
+</p>
+
+<p>
+Arjun stayed silent,
+allowing her to continue.
+</p>
+
+<p>
+“But after they separated...
+rain started feeling different.”
+</p>
+
+<p>
+Her voice remained calm.
+Too calm.
+The kind of calm people learn after carrying pain for too long.
+</p>
+
+<p>
+Arjun felt something tighten painfully inside his chest.
+</p>
+
+<p>
+Because suddenly,
+her sadness made sense.
+</p>
+
+<div class="quote">
+"Some people don’t become quiet naturally.
+Life teaches them silence slowly."
+</div>
+
+<p>
+Mira looked outside again while distant thunder echoed softly.
+</p>
+
+<p>
+“After that,
+our house became strange.”
+</p>
+
+<p>
+She smiled weakly.
+</p>
+
+<p>
+“Not loud.
+Not violent.
+Just empty.”
+</p>
+
+<p>
+Arjun listened carefully,
+afraid even small interruptions might break the moment.
+</p>
+
+<p>
+“I think that’s when I started liking silence,” she whispered.
+</p>
+
+<p>
+For several seconds,
+the only sound between them was rain.
+</p>
+
+<p>
+Then Arjun spoke softly.
+</p>
+
+<p>
+“I understand.”
+</p>
+
+<p>
+Mira looked at him immediately.
+</p>
+
+<p>
+Not surprised.
+Not confused.
+</p>
+
+<p>
+Almost relieved.
+</p>
+
+<p>
+Because sometimes people don’t need solutions.
+They only need someone who truly understands.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/xT0xeMA62E1XIlup68/giphy.gif">
+
+</div>
+
+<p>
+The tea slowly became colder.
+But neither of them wanted to leave.
+</p>
+
+<p>
+For the first time in a long time,
+both of them felt less alone.
+</p>
+
+<p>
+And maybe that’s how love actually begins.
+</p>
+
+<p>
+Not through dramatic confessions.
+Not through perfect moments.
+</p>
+
+<p>
+But through comfort.
+</p>
+
+<p>
+Through finally finding someone whose silence feels like home.
+</p>
+
+<div class="quote">
+"Sometimes love starts the moment your loneliness feels understood."
+</div>
+
+<p>
+The rain outside slowly became softer.
+</p>
+
+<p>
+Mira looked at the time and sighed quietly.
+</p>
+
+<p>
+“It’s getting late.”
+</p>
+
+<p>
+Arjun nodded,
+though part of him wished the night would continue forever.
+</p>
+
+<p>
+Together,
+they stepped outside again beneath the same umbrella.
+</p>
+
+<p>
+Cold wind touched their faces while wet roads reflected glowing city lights beautifully around them.
+</p>
+
+<p>
+They walked slower this time.
+</p>
+
+<p>
+More comfortable.
+Less nervous.
+</p>
+
+<p>
+At one point,
+their shoulders touched accidentally.
+Neither moved away immediately.
+</p>
+
+<p>
+And somehow,
+that tiny moment felt more intimate than words.
+</p>
+
+<div class="quote">
+"The most beautiful relationships often grow quietly...
+through moments nobody else notices."
+</div>
+
+<p>
+As they reached the quieter side of the road near Mira’s apartment lane,
+she stopped walking.
+</p>
+
+<p>
+“This is my street.”
+</p>
+
+<p>
+Arjun suddenly wished the road had been longer.
+</p>
+
+<p>
+Rain continued falling softly around them while silence wrapped gently between both hearts.
+</p>
+
+<p>
+Then Mira smiled.
+</p>
+
+<p>
+A real smile.
+Warm.
+Comfortable.
+</p>
+
+<p>
+“I’m glad it rained today.”
+</p>
+
+<p>
+Arjun forgot how to breathe for a second.
+</p>
+
+<p>
+Before he could respond,
+she stepped backward slowly beneath the dim streetlight.
+</p>
+
+<p>
+“Goodnight, Arjun.”
+</p>
+
+<p>
+The way she said his name felt dangerously beautiful.
+</p>
+
+<div class="gif">
+
+<img src="https://media.giphy.com/media/26ufcYAkp8e66vanu/giphy.gif">
+
+</div>
+
+<p>
+Arjun stood there long after she disappeared into the quiet street.
+</p>
+
+<p>
+Rain touched his shoulders softly.
+But he didn’t move.
+</p>
+
+<p>
+Because for the first time in years...
+his heart finally felt awake again.
+</p>
+
+<p>
+And somewhere deep inside him,
+without even realizing it,
+he had already started falling in love completely.
+</p>
+
+<div class="quote">
+"Some nights quietly become memories you carry forever."
+</div>
+
+<div class="next">
+
+<a href="chapter5.html">
+Next Chapter →
+</a>
+
+</div>
+
+</section>
+
+<!-- AUDIO -->
+
+<audio id="bgMusic" autoplay loop>
+
+<source src="../assets/audio/rain.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener('load',()=>{
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.opacity='0';
+
+setTimeout(()=>{
+
+document.getElementById('loader').style.display='none';
+
+},1000);
+
+},2000);
+
+/* AUTO MUSIC */
+
+const music=document.getElementById('bgMusic');
+
+music.volume=0.4;
+
+music.play().catch(()=>{
+
+document.addEventListener('click',()=>{
+
+music.play();
+
+},{once:true});
+
+});
+
+});
+
+/* PROGRESS BAR */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+let scrolled=(winScroll/height)*100;
+
+document.getElementById("progressBar").style.width=scrolled+"%";
+
+};
+
+/* READ ALOUD */
+
+function readStory(){
+
+const story=document.getElementById('story').innerText;
+
+const speech=new SpeechSynthesisUtterance(story);
+
+speech.lang='en-US';
+
+speech.rate=0.92;
+
+speech.pitch=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+/* RAIN EFFECT */
+
+for(let i=0;i<180;i++){
+
+let rain=document.createElement('div');
+
+rain.classList.add('rain');
+
+rain.style.left=Math.random()*window.innerWidth+'px';
+
+rain.style.animationDuration=(Math.random()*1+0.5)+'s';
+
+rain.style.opacity=Math.random();
+
+rain.style.height=(Math.random()*100+20)+'px';
+
+document.body.appendChild(rain);
+
+}
+
+</script>
+
+</body>
+</html>
