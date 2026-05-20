@@ -13,7 +13,9 @@ silent-love/chapter7.html
 
 <title>A Silent Love — Chapter 7</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -109,8 +111,7 @@ padding:20px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-backdrop-filter:blur(12px);
-background:rgba(0,0,0,0.35);
+background:rgba(0,0,0,0.82);
 z-index:9999;
 border-bottom:1px solid rgba(255,255,255,0.06);
 }
@@ -149,7 +150,7 @@ height:100vh;
 
 background:
 linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.93)),
-url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop');
+url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=70&w=1200&auto=format&fit=crop');
 
 background-size:cover;
 background-position:center;
@@ -217,18 +218,15 @@ color:#bababa;
 /* TEXT */
 
 .story p{
-
 font-size:22px;
 margin-bottom:35px;
 color:#ededed;
-
 opacity:0;
-transform:translateY(30px);
-
+transform:translateY(20px);
+will-change:opacity,transform;
 animation:appear linear forwards;
 animation-timeline:view();
-animation-range:entry 0 cover 35%;
-
+animation-range:entry 0 cover 30%;
 }
 
 @keyframes appear{
@@ -304,6 +302,28 @@ transform:translateY(120vh);
 
 }
 
+
+/* =========================================================
+SCENE SKETCHES
+========================================================= */
+
+.scene-sketch {
+  opacity: 0;
+  animation: sketchFadeIn 0.8s ease-in-out forwards;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.1));
+}
+
+@keyframes sketchFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -357,9 +377,7 @@ Silent Love
 
 <div class="controls">
 
-<button onclick="readStory()">
-🔊 Read Aloud
-</button>
+
 
 </div>
 
@@ -430,11 +448,7 @@ And somehow...
 every little thing began mattering.
 </p>
 
-<div class="gif">
 
-<img src="https://media.giphy.com/media/l3vR4CdLInXOhr3rO/giphy.gif">
-
-</div>
 
 <p>
 Arjun started noticing changes inside himself too.
@@ -518,11 +532,7 @@ Her eyes looked tired.
 And the soft warmth she normally carried seemed absent somehow.
 </p>
 
-<div class="gif">
 
-<img src="https://media.giphy.com/media/3orieUe6ejxSFxYCXe/giphy.gif">
-
-</div>
 
 <p>
 “You okay?” Arjun asked quietly.
@@ -641,11 +651,7 @@ Until eventually...
 the pretending becomes permanent.
 </p>
 
-<div class="gif">
 
-<img src="https://media.giphy.com/media/l378khQxt68syiWJy/giphy.gif">
-
-</div>
 
 <p>
 Mira looked down quietly before speaking again.
@@ -757,11 +763,7 @@ Then she asked the question almost like a child afraid of disappointment.
 “How do you know?”
 </p>
 
-<div class="gif">
 
-<img src="https://media.giphy.com/media/xTiTnMhJTwNHChdTZS/giphy.gif">
-
-</div>
 
 <p>
 Arjun opened his mouth to answer.
@@ -838,11 +840,7 @@ Real love.
 The dangerous kind that changes people permanently.
 </p>
 
-<div class="gif">
 
-<img src="https://media.giphy.com/media/26ufcYAkp8e66vanu/giphy.gif">
-
-</div>
 
 <p>
 As evening slowly darkened around campus,
@@ -888,46 +886,13 @@ Next Chapter →
 
 <!-- AUDIO -->
 
-<audio id="bgMusic" autoplay loop>
-
-<source src="../assets/audio/rain.mp3" type="audio/mpeg">
-
-</audio>
-
 <script>
 
 /* LOADER */
 
-window.addEventListener('load',()=>{
-
-setTimeout(()=>{
-
-document.getElementById('loader').style.opacity='0';
-
-setTimeout(()=>{
-
-document.getElementById('loader').style.display='none';
-
-},1000);
-
-},2000);
-
-/* AUTO MUSIC */
-
-const music=document.getElementById('bgMusic');
-
-music.volume=0.4;
-
-music.play().catch(()=>{
-
-document.addEventListener('click',()=>{
-
-music.play();
-
-},{once:true});
-
-});
-
+document.addEventListener('DOMContentLoaded',()=>{
+const l=document.getElementById('loader');
+if(l){setTimeout(()=>{l.style.transition='opacity 1s';l.style.opacity='0';setTimeout(()=>l.style.display='none',1000);},2200);}
 });
 
 /* PROGRESS BAR */
@@ -943,46 +908,54 @@ let scrolled=(winScroll/height)*100;
 document.getElementById("progressBar").style.width=scrolled+"%";
 
 };
-
-/* READ ALOUD */
-
-function readStory(){
-
-const story=document.getElementById('story').innerText;
-
-const speech=new SpeechSynthesisUtterance(story);
-
-speech.lang='en-US';
-
-speech.rate=0.92;
-
-speech.pitch=1;
-
-window.speechSynthesis.speak(speech);
-
-}
-
-/* RAIN EFFECT */
-
-for(let i=0;i<180;i++){
-
-let rain=document.createElement('div');
-
-rain.classList.add('rain');
-
-rain.style.left=Math.random()*window.innerWidth+'px';
-
-rain.style.animationDuration=(Math.random()*1+0.5)+'s';
-
-rain.style.opacity=Math.random();
-
-rain.style.height=(Math.random()*100+20)+'px';
-
-document.body.appendChild(rain);
-
-}
-
 </script>
 
+
+<audio id="bgMusic" preload="none" loop></audio>
+<script>
+(function(){
+  const tracks = [{pct:0,src:"../assets/audio/soft-piano.mp3"},{pct:50,src:"../assets/audio/rain.mp3"},{pct:80,src:"../assets/audio/dark-ambience.mp3"}];
+  const music  = document.getElementById('bgMusic');
+  let   current = '';
+
+  function pct(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    return h > 0 ? (window.scrollY / h) * 100 : 0;
+  }
+
+  function pickTrack(){
+    let chosen = tracks[0].src;
+    for(const t of tracks){ if(pct() >= t.pct) chosen = t.src; }
+    return chosen;
+  }
+
+  function play(src){
+    if(current === src) return;
+    current = src;
+    const pos = music.currentTime;
+    music.src = src;
+    music.load();
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+  }
+
+  // tracks preloaded lazily on first interaction
+
+  // start on first interaction if autoplay blocked
+  function startMusic(){
+    play(pickTrack());
+    document.removeEventListener('click', startMusic);
+    document.removeEventListener('keydown', startMusic);
+    document.removeEventListener('touchstart', startMusic);
+  }
+
+  // music starts on first interaction only
+  document.addEventListener('click',     startMusic, {once:true});
+  document.addEventListener('keydown',   startMusic, {once:true});
+  document.addEventListener('touchstart',startMusic, {once:true});
+
+  window.addEventListener('scroll', ()=>{ play(pickTrack()); }, {passive:true});
+})();
+</script>
 </body>
 </html>

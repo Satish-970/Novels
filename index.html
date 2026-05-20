@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Silent Stories</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -14,7 +16,7 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
 .bg-glow{position:fixed;width:700px;height:700px;border-radius:50%;background:rgba(255,255,255,0.04);filter:blur(120px);top:-200px;right:-200px;z-index:-2;}
 
 /* NAVBAR */
-.navbar{width:100%;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;z-index:1000;backdrop-filter:blur(18px);background:rgba(0,0,0,0.35);border-bottom:1px solid rgba(255,255,255,0.06);}
+.navbar{width:100%;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;z-index:1000;background:rgba(0,0,0,0.75);border-bottom:1px solid rgba(255,255,255,0.06);}
 .logo-section{display:flex;align-items:center;gap:14px;}
 .logo-img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.3);}
 .logo-text h1{font-size:26px;font-family:'Cinzel',serif;letter-spacing:1px;}
@@ -24,7 +26,7 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
 .nav-links a:hover{background:white;color:black;}
 
 /* HERO */
-.hero{min-height:100vh;background:linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.92)),url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2070&auto=format&fit=crop');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:space-between;padding:0 8%;gap:50px;}
+.hero{min-height:100vh;background:linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.92)),url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1200&auto=format&fit=crop&q=60');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:space-between;padding:0 8%;gap:50px;}
 .hero-left{max-width:700px;animation:fadeUp 1.5s ease;}
 .hero-left h1{font-size:88px;line-height:1.05;margin-bottom:25px;font-family:'Cinzel',serif;}
 .hero-left span{color:#ffc0cb;}
@@ -36,7 +38,7 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
 .hero-buttons a:hover{transform:translateY(-5px);}
 
 /* PROFILE CARD */
-.profile-card{width:360px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:30px;padding:35px;backdrop-filter:blur(15px);text-align:center;animation:fadeUp 2s ease;}
+.profile-card{width:360px;background:rgba(20,20,20,0.95);border:1px solid rgba(255,255,255,0.08);border-radius:30px;padding:35px;text-align:center;animation:fadeUp 2s ease;}
 .profile-card img{width:130px;height:130px;border-radius:50%;object-fit:cover;margin-bottom:20px;border:3px solid rgba(255,255,255,0.2);}
 .profile-card h2{font-size:32px;margin-bottom:10px;}
 .profile-card p{color:#c8c8c8;line-height:1.8;margin-bottom:25px;}
@@ -76,9 +78,12 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
 /* FOOTER */
 .footer{padding:50px;text-align:center;color:#9f9f9f;border-top:1px solid rgba(255,255,255,0.08);}
 
-/* RAIN */
-.rain{position:fixed;width:2px;height:100px;background:rgba(255,255,255,0.12);animation:rain linear infinite;z-index:-1;}
-@keyframes rain{0%{transform:translateY(-100px);}100%{transform:translateY(100vh);}}
+/* RAIN — CSS-only, no JS DOM spam */
+.rain-layer{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.rain-layer::before,.rain-layer::after{content:'';position:absolute;top:-10%;width:1px;height:80px;background:rgba(255,255,255,0.10);animation:rain linear infinite;}
+.rain-layer::before{left:20%;animation-duration:0.8s;animation-delay:-0.2s;}
+.rain-layer::after{left:70%;animation-duration:1.1s;animation-delay:-0.6s;}
+@keyframes rain{to{transform:translateY(110vh);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
 
 /* =====================================================
@@ -398,7 +403,7 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
     </div>
 
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1516589091380-5d6010f0f8c4?q=80&w=1974&auto=format&fit=crop" alt="Midnight Letters">
+      <img src="https://images.unsplash.com/photo-1573854612183-873dd713cc8b?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?q=80&w=1974&auto=format&fit=crop" alt="Midnight Letters">
       <div class="overlay">
         <div class="tags"><div class="tag">Mystery</div><div class="tag">Letters</div><div class="tag">Drama</div></div>
         <h2>Midnight Letters</h2>
@@ -413,7 +418,7 @@ body{background:#070707;color:white;font-family:'Poppins',sans-serif;overflow-x:
         <div class="tags"><div class="tag">Memories</div><div class="tag">Heartbreak</div><div class="tag">Life</div></div>
         <h2>When We Stopped Talking</h2>
         <p>Some people leave your life suddenly. But their memories continue living quietly inside your heart.</p>
-        <a href="#" class="read-btn">Coming Soon</a>
+        <a href="end.html" class="read-btn">Coming Soon</a>
       </div>
     </div>
 
@@ -442,16 +447,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
   });
 });
 
-/* RAIN EFFECT */
-for(let i=0;i<150;i++){
-  let rain=document.createElement('div');
-  rain.classList.add('rain');
-  rain.style.left=Math.random()*window.innerWidth+'px';
-  rain.style.animationDuration=(Math.random()*1+0.5)+'s';
-  rain.style.opacity=Math.random();
-  rain.style.height=(Math.random()*80+20)+'px';
-  document.body.appendChild(rain);
-}
+/* RAIN — injected efficiently with fragment */
+(function(){
+  const frag=document.createDocumentFragment();
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');
+    d.className='rain';
+    d.style.cssText='position:fixed;width:1px;z-index:-1;pointer-events:none;background:rgba(255,255,255,0.10);'
+      +'left:'+Math.random()*100+'vw;'
+      +'height:'+(Math.random()*60+20)+'px;'
+      +'animation:rain '+(Math.random()*1+0.5)+'s linear infinite;'
+      +'animation-delay:-'+(Math.random()*2)+'s;'
+      +'top:-120px;';
+    frag.appendChild(d);
+  }
+  document.body.appendChild(frag);
+})();
 
 /* =====================================================
    FORM OVERLAY LOGIC
