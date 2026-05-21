@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Letters — Chapter 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+:root {
+  --ink:   #7c8cff;
+  --glow:  rgba(114,128,255,0.18);
+  --bg:    #05070b;
+  --card:  #0d1128;
+  --muted: #a8b0c5;
+}
+
+body {
+  background: var(--bg);
+  color: #f3f4f6;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  line-height: 2;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0b0f16; }
+::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 20px; }
+
+/* ── PROGRESS ── */
+.progress-container {
+  position: fixed; top: 0; width: 100%; height: 3px; z-index: 999999;
+}
+.progress-bar {
+  height: 3px; width: 0%;
+  background: var(--ink);
+  box-shadow: 0 0 16px var(--ink);
+  transition: width 0.1s linear;
+}
+
+/* ── LOADER ── */
+.loader {
+  position: fixed; inset: 0; background: #000;
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column; z-index: 99999; transition: opacity 1s;
+}
+.loader h1 {
+  font-size: 58px; font-family: 'Cinzel', serif;
+  animation: pulse 2s infinite; letter-spacing: 3px;
+}
+.loader p { margin-top: 16px; color: #9ca3af; font-family: 'Caveat', cursive; font-size: 20px; }
+@keyframes pulse {
+  0%,100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  position: fixed; top: 0; width: 100%;
+  padding: 18px 8%;
+  display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(16px);
+  background: rgba(0,0,0,0.28);
+  z-index: 9999;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.logo { font-size: 28px; font-family: 'Cinzel', serif; letter-spacing: 2px; }
+.chapter-badge {
+  font-family: 'Caveat', cursive;
+  color: var(--ink); font-size: 16px; opacity: 0.8;
+}
+
+/* ── FOG ── */
+.fog {
+  position: fixed; width: 200%; height: 200%;
+  background: url('https://i.imgur.com/8IuucQZ.png');
+  opacity: 0.03;
+  animation: fogMove 90s linear infinite;
+  pointer-events: none; z-index: 0;
+}
+@keyframes fogMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── PARTICLES ── */
+.particle {
+  position: fixed; width: 2px; height: 2px;
+  background: white; border-radius: 50%;
+  opacity: 0.12; animation: floatUp linear infinite; z-index: 0;
+}
+@keyframes floatUp {
+  from { transform: translateY(100vh); }
+  to   { transform: translateY(-100vh); }
+}
+
+/* ── HERO ── */
+.hero {
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.97)),
+    url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover; background-position: center;
+  display: flex; justify-content: center; align-items: center;
+  text-align: center; padding: 20px;
+  position: relative;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 860px;
+  animation: fadeUp 2s;
+}
+.hero-content .eyebrow {
+  font-family: 'Caveat', cursive;
+  font-size: 22px; color: var(--ink);
+  letter-spacing: 3px; margin-bottom: 18px;
+}
+.hero-content h1 {
+  font-size: 82px; font-family: 'Cinzel', serif;
+  line-height: 1.1; margin-bottom: 22px;
+}
+.hero-content .sub {
+  font-size: 22px; color: #c9d1e8; line-height: 1.7;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STORY WRAPPER ── */
+.story {
+  max-width: 920px;
+  margin: auto;
+  padding: 100px 28px;
+  position: relative; z-index: 2;
+}
+
+/* ── CHAPTER TITLE ── */
+.chapter-title {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.chapter-title h2 {
+  font-size: 52px; font-family: 'Cinzel', serif;
+  margin-bottom: 14px;
+}
+.chapter-title p { color: var(--muted); }
+
+/* ── PARAGRAPHS ── */
+.story p {
+  font-size: 21px;
+  margin-bottom: 32px;
+  color: #eef0f8;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: appear linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0 cover 35%;
+}
+@keyframes appear {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── QUOTES ── */
+.quote {
+  font-size: 30px;
+  text-align: center;
+  font-style: italic;
+  color: var(--ink);
+  margin: 76px 0;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: appear linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
+}
+
+/* ── SCENE IMAGE ── */
+.scene {
+  margin: 68px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: appear linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0 cover 25%;
+}
+.scene-img-wrap {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 20px;
+  border: 1px solid rgba(114,128,255,0.2);
+  background: var(--card);
+  overflow: hidden;
+  position: relative;
+  min-height: 260px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(114,128,255,0.08);
+}
+.scene-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+
+.scene-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  color: var(--ink);
+  opacity: 0.72;
+  letter-spacing: 0.4px;
+}
+
+/* ── LETTER CARD ── */
+.letter-card {
+  background: linear-gradient(135deg, #0d1228 0%, #111a38 100%);
+  border: 1px solid rgba(114,128,255,0.25);
+  border-radius: 16px;
+  padding: 40px 48px;
+  margin: 60px 0;
+  position: relative;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: appear linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0 cover 30%;
+  box-shadow: inset 0 0 60px rgba(114,128,255,0.04), 0 0 30px rgba(114,128,255,0.06);
+}
+.letter-card::before {
+  content: '✦';
+  position: absolute;
+  top: 18px; left: 24px;
+  color: var(--ink); opacity: 0.3; font-size: 13px;
+}
+.letter-card p {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  color: #c8d4ff;
+  margin-bottom: 16px;
+  line-height: 1.7;
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+.letter-card p:last-child { margin-bottom: 0; }
+
+/* ── NEXT ── */
+.next {
+  text-align: center;
+  margin-top: 110px;
+}
+.next a {
+  text-decoration: none;
+  background: var(--ink);
+  color: white;
+  padding: 18px 44px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+.next a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(114,128,255,0.45);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 18px;
+  margin: 60px 0;
+  opacity: 0.25;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ink));
+}
+.divider::after { background: linear-gradient(90deg, var(--ink), transparent); }
+.divider span {
+  font-family: 'Caveat', cursive;
+  color: var(--ink); font-size: 18px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 46px; }
+  .story p { font-size: 18px; }
+  .chapter-title h2 { font-size: 36px; }
+  .quote { font-size: 24px; }
+  .letter-card { padding: 28px 24px; }
+  .letter-card p { font-size: 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <h1>Midnight Letters</h1>
+  <p>Chapter 2 is waiting in the hallway...</p>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="fog"></div>
+
+<div class="navbar">
+  <div class="logo">Midnight Letters</div>
+  <div class="chapter-badge">Chapter II — Unknown Handwriting</div>
+</div>
+
+<section class="hero story-section" data-music="../assets/audio/rain-night.mp3">
+  <div class="hero-content">
+    <div class="eyebrow">CHAPTER 2</div>
+    <h1>Unknown<br>Handwriting</h1>
+    <p class="sub">
+      Some sentences stay with you not because they're beautiful —<br>
+      but because they're too accurate.
+    </p>
+  </div>
+</section>
+
+<section class="story story-section" id="story" data-music="../assets/audio/soft-piano-rain.mp3">
+
+  <div class="chapter-title">
+    <h2>Unknown Handwriting</h2>
+    <p>He barely slept. Even at 3 AM, the letter was still in his hand.</p>
+  </div>
+
+  <div class="quote">
+    "Some sentences repeat inside you not because they're poetic — but because they're terrifyingly true."
+  </div>
+
+  <p>
+    Aarush barely slept after reading the first letter.
+  </p>
+  <p>
+    Even at 3 AM, he still sat near the apartment window holding the folded paper beneath dim blue city light.
+  </p>
+  <p>
+    "You looked tired again today."
+  </p>
+  <p>
+    The sentence repeated endlessly inside his mind.
+  </p>
+  <p>
+    Because no one had noticed him that carefully in years.
+  </p>
+  <p>
+    And honestly... that scared him more than the mystery itself.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene1-wrap"></div>
+    <span class="scene-caption">— 3 AM. The city light. The letter still open.</span>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p>
+    The next morning, he checked the hallway security camera before leaving for work.
+  </p>
+  <p>
+    Nothing.
+  </p>
+  <p>
+    No footage. No movement. No figure near Apartment 306.
+  </p>
+  <p>
+    Only empty hallways and flickering lights.
+  </p>
+  <p>
+    Somehow, that made everything stranger.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene2-wrap"></div>
+    <span class="scene-caption">— Empty hallway. No footage. No figure. Nothing.</span>
+  </div>
+
+  <div class="quote">
+    "The most unsettling mysteries leave no evidence behind. Only questions."
+  </div>
+
+  <p>
+    The entire day passed differently after that.
+  </p>
+  <p>
+    Aarush found himself distracted constantly.
+  </p>
+  <p>
+    Every unknown face made him wonder.
+  </p>
+  <p>
+    Every passing stranger suddenly felt suspicious.
+  </p>
+  <p>
+    Who was she? Why him? And how did she know things nobody else noticed?
+  </p>
+  <p>
+    At work, conversations echoed meaninglessly around him while coworkers laughed together near the cafeteria.
+  </p>
+  <p>
+    But Aarush remained distant. Not physically. Emotionally.
+  </p>
+  <p>
+    Like part of his mind still remained inside Apartment 306 beside a mysterious handwritten letter.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene3-wrap"></div>
+    <span class="scene-caption">— Surrounded by people. Completely alone inside.</span>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p>
+    Rain started again after sunset.
+  </p>
+  <p>
+    The city slowly disappeared beneath fog, headlights, and silver reflections across wet roads.
+  </p>
+  <p>
+    By 11:32 PM, Aarush stood inside the elevator returning home.
+  </p>
+  <p>
+    And this time... his heartbeat already felt nervous before the doors even opened.
+  </p>
+  <p>
+    Because part of him hoped another letter would be there.
+  </p>
+  <p>
+    That realization disturbed him immediately.
+  </p>
+  <p>
+    How could someone unknown already matter this much?
+  </p>
+
+  <div class="quote">
+    "You know you're in trouble when you start hoping for things you can't explain."
+  </div>
+
+  <p>
+    The elevator doors opened slowly.
+  </p>
+  <p>
+    Silent hallway. Flickering light. Cold air.
+  </p>
+  <p>
+    And there it was.
+  </p>
+  <p>
+    Another envelope.
+  </p>
+  <p>
+    Exactly near his apartment door. Same handwriting. Same black ink. Same strange familiarity.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene4-wrap"></div>
+    <span class="scene-caption">— A second envelope. Same door. Same ink. Same feeling.</span>
+  </div>
+
+  <p>
+    Aarush stopped walking instantly.
+  </p>
+  <p>
+    For several seconds, he simply stared at it while distant thunder echoed softly outside the building.
+  </p>
+  <p>
+    Then slowly, he looked around the hallway.
+  </p>
+  <p>
+    Nobody.
+  </p>
+  <p>
+    Only silence.
+  </p>
+  <p>
+    For the first time, fear mixed softly with curiosity inside his chest.
+  </p>
+  <p>
+    Because this no longer felt random.
+  </p>
+  <p>
+    Someone was watching carefully. Someone knew his routine.
+  </p>
+  <p>
+    And somehow... that person understood him emotionally already.
+  </p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p>
+    Inside Apartment 306, rain touched the windows softly while distant thunder echoed across the city skyline.
+  </p>
+  <p>
+    Aarush sat down near the kitchen light again. Exactly like yesterday.
+  </p>
+  <p>
+    Except tonight, his loneliness felt different.
+  </p>
+  <p>
+    Less empty. More restless.
+  </p>
+  <p>
+    He opened the envelope carefully.
+  </p>
+  <p>
+    Another handwritten page. Another unknown piece of someone's heart.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene5-wrap"></div>
+    <span class="scene-caption">— Dim kitchen light. Another letter unfolding.</span>
+  </div>
+
+  <div class="letter-card">
+    <p>"You pretend to be okay very convincingly."</p>
+    <p>"But sometimes your eyes look emotionally exhausted."</p>
+    <p>"You always sit beside the rain instead of turning on the television."</p>
+    <p>"You look like someone waiting for life to begin again."</p>
+    <p>"You looked happier tonight."</p>
+  </div>
+
+  <p>
+    Aarush's breathing slowed after the first line.
+  </p>
+  <p>
+    The room suddenly felt colder.
+  </p>
+  <p>
+    Because once again... the letter sounded painfully accurate. Like the writer had seen parts of him nobody else ever noticed.
+  </p>
+
+  <div class="quote">
+    "Being understood by a stranger is more unsettling than being misunderstood by everyone you know."
+  </div>
+
+  <p>
+    The final line made him freeze completely.
+  </p>
+  <p>
+    "You looked happier tonight."
+  </p>
+  <p>
+    Because that meant she had seen him tonight too. Recently. Close enough to notice.
+  </p>
+  <p>
+    And suddenly, the apartment didn't feel empty anymore.
+  </p>
+  <p>
+    It felt watched.
+  </p>
+  <p>
+    Not in a threatening way. Something stranger than that.
+  </p>
+  <p>
+    Like someone cared quietly from the shadows.
+  </p>
+  <p>
+    And somehow... that felt dangerously comforting.
+  </p>
+
+  <div class="scene">
+    <div class="scene-img-wrap" id="scene6-wrap"></div>
+    <span class="scene-caption">— Hundreds of windows. One unknown girl who knew his sadness.</span>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p>
+    Aarush stood up slowly and walked toward the apartment window.
+  </p>
+  <p>
+    Rain covered the city endlessly outside.
+  </p>
+  <p>
+    Hundreds of glowing windows. Thousands of strangers.
+  </p>
+  <p>
+    Yet somewhere among them... one unknown girl knew his sadness better than anyone else.
+  </p>
+  <p>
+    And for the first time in years, he genuinely wanted tomorrow to arrive faster.
+  </p>
+  <p>
+    Because maybe another letter would come. Maybe another piece of her.
+  </p>
+  <p>
+    And maybe... without realizing it... his lonely heart had already started waiting for someone he had never even seen.
+  </p>
+
+  <div class="quote">
+    "Every story needs two people willing to begin. His had already started — he just didn't know hers had too."
+  </div>
+
+  <div class="next">
+    <a href="../end.html">Next Chapter →</a>
+  </div>
+
+</section>
+
+<audio id="bgMusic" loop></audio>
+
+<script>
+
+/* ── CONFIG ── */
+const SCENES = [
+  { id: 'scene1-wrap', filename: 'scene1.png' },
+  { id: 'scene2-wrap', filename: 'scene2.png' },
+  { id: 'scene3-wrap', filename: 'scene3.png' },
+  { id: 'scene4-wrap', filename: 'scene4.png' },
+  { id: 'scene5-wrap', filename: 'scene5.png' },
+  { id: 'scene6-wrap', filename: 'scene6.png' }
+];
+
+/* ── LOAD STATIC ASSETS ── */
+function loadScenes() {
+  SCENES.forEach(scene => {
+    const wrap = document.getElementById(scene.id);
+    if (wrap) {
+      wrap.innerHTML = `<img src="../assets/midnight/${scene.filename}" alt="Scene illustration" loading="lazy"/>`;
+    }
+  });
+}
+
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  loadScenes(); 
+  setTimeout(() => {
+    document.getElementById('loader').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+    }, 1000);
+  }, 2200);
+});
+
+/* ── PROGRESS BAR ── */
+window.onscroll = function () {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('progressBar').style.width = ((winScroll / height) * 100) + '%';
+};
+
+/* ── PARTICLES ── */
+for (let i = 0; i < 110; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.left = Math.random() * window.innerWidth + 'px';
+  p.style.animationDuration = (Math.random() * 22 + 10) + 's';
+  p.style.opacity = Math.random() * 0.18;
+  document.body.appendChild(p);
+}
+
+/* ── DYNAMIC MUSIC ── */
+const musicPlayer = document.getElementById('bgMusic');
+const sections = document.querySelectorAll('.story-section');
+let currentMusic = '';
+
+function changeMusic(src) {
+  if (currentMusic !== src) {
+    currentMusic = src;
+    musicPlayer.src = src;
+    musicPlayer.volume = 0.38;
+    musicPlayer.play().catch(() => {
+      document.addEventListener('click', () => musicPlayer.play(), { once: true });
+    });
+  }
+}
+
+window.addEventListener('scroll', () => {
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+      changeMusic(section.getAttribute('data-music'));
+    }
+  });
+});
+
+changeMusic('../assets/audio/rain-night.mp3');
+
+</script>
+</body>
+</html>

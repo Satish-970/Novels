@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silent Stories — To Be Continued</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:#040404;
+  color:white;
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* RAIN */
+.rain{
+  position:fixed;
+  width:1px;
+  background:rgba(255,255,255,0.10);
+  top:-120px;
+  z-index:0;
+  animation:rain linear infinite;
+}
+@keyframes rain{to{transform:translateY(120vh);}}
+
+/* GLOW */
+.glow{
+  position:fixed;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:rgba(255,192,203,0.04);
+  filter:blur(120px);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:0;
+  animation:breathe 6s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{opacity:0.4;transform:translate(-50%,-50%) scale(1);}
+  50%{opacity:0.8;transform:translate(-50%,-50%) scale(1.1);}
+}
+
+/* CARD */
+.card{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:680px;
+  padding:0 30px;
+  animation:fadeUp 1.8s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.eyebrow{
+  font-size:12px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#ffc0cb;
+  margin-bottom:28px;
+  opacity:0.8;
+}
+
+.title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(42px,8vw,72px);
+  line-height:1.1;
+  margin-bottom:30px;
+  background:linear-gradient(135deg,#ffffff 0%,#ffc0cb 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.divider{
+  width:60px;height:1px;
+  background:rgba(255,192,203,0.4);
+  margin:0 auto 30px;
+}
+
+.message{
+  font-size:18px;
+  color:#c8c8c8;
+  line-height:2;
+  margin-bottom:14px;
+}
+
+.sub{
+  font-size:14px;
+  color:#666;
+  line-height:1.8;
+  margin-bottom:50px;
+}
+
+.buttons{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn-home{
+  text-decoration:none;
+  background:white;
+  color:black;
+  padding:16px 36px;
+  border-radius:40px;
+  font-weight:600;
+  font-size:15px;
+  transition:0.3s;
+}
+.btn-home:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,255,255,0.15);}
+
+.btn-ghost{
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,0.18);
+  color:#d4d4d4;
+  padding:16px 36px;
+  border-radius:40px;
+  font-weight:500;
+  font-size:15px;
+  transition:0.3s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.06);transform:translateY(-4px);}
+
+/* quote at bottom */
+.quote{
+  margin-top:60px;
+  font-style:italic;
+  font-size:15px;
+  color:#444;
+  line-height:1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="card">
+  <p class="eyebrow">The story continues...</p>
+  <h1 class="title">To Be<br>Continued</h1>
+  <div class="divider"></div>
+  <p class="message">This chapter hasn't been written yet.</p>
+  <p class="sub">
+    The next part of this story is still being crafted with care.<br>
+    Come back soon — some stories are worth waiting for.
+  </p>
+  <div class="buttons">
+    <a href="index.html" class="btn-home">← Back to Home</a>
+    <a href="index.html#novels" class="btn-ghost">Browse All Stories</a>
+  </div>
+  <p class="quote">"Every story pauses before its most beautiful part."</p>
+</div>
+
+<script>
+/* Rain */
+(function(){
+  const f=document.createDocumentFragment();
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');
+    d.className='rain';
+    d.style.cssText='left:'+Math.random()*100+'vw;'
+      +'height:'+(Math.random()*60+20)+'px;'
+      +'animation-duration:'+(Math.random()*1+0.5)+'s;'
+      +'animation-delay:-'+(Math.random()*2)+'s;';
+    f.appendChild(d);
+  }
+  document.body.appendChild(f);
+})();
+</script>
+</body>
+</html>
