@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Midnight Letters — Chapter 3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:wght@400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--bg:#09090d;
+--bg2:#111118;
+--gold:#b89b65;
+--text:#d8d2ca;
+--text-dim:#8d8883;
+--white:#ece7df;
+--accent:#6d8bb0;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:var(--bg);
+color:var(--text);
+
+font-family:'EB Garamond',serif;
+line-height:2;
+
+overflow-x:hidden;
+
+opacity:0;
+transition:opacity 2s ease;
+
+}
+
+body.loaded{
+opacity:1;
+}
+
+/* RAIN */
+
+#rain{
+
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:0;
+opacity:0.16;
+
+}
+
+/* CONTAINER */
+
+.container{
+
+position:relative;
+z-index:2;
+
+max-width:760px;
+margin:auto;
+
+padding:0 25px 120px;
+
+}
+
+/* HEADER */
+
+.header{
+
+padding:80px 0 60px;
+text-align:center;
+border-bottom:1px solid rgba(255,255,255,0.06);
+
+margin-bottom:60px;
+
+}
+
+.series{
+
+font-family:'Cinzel',serif;
+font-size:12px;
+
+letter-spacing:0.4em;
+text-transform:uppercase;
+
+color:var(--gold);
+
+margin-bottom:18px;
+
+}
+
+.chapter{
+
+font-family:'Cormorant Garamond',serif;
+font-size:70px;
+font-weight:300;
+
+color:var(--white);
+
+margin-bottom:12px;
+
+}
+
+.subtitle{
+
+font-style:italic;
+font-size:18px;
+color:var(--text-dim);
+
+}
+
+/* STORY */
+
+.story{
+
+font-size:22px;
+
+}
+
+.story p{
+
+margin-bottom:30px;
+
+opacity:0;
+transform:translateY(25px);
+
+animation:fadeUp linear forwards;
+animation-timeline:view();
+animation-range:entry 0 cover 35%;
+
+}
+
+/* QUOTE */
+
+.quote{
+
+border-left:2px solid rgba(184,155,101,0.45);
+
+padding-left:26px;
+margin:55px 0;
+
+font-style:italic;
+font-size:28px;
+
+color:var(--text-dim);
+
+}
+
+/* LETTER */
+
+.letter{
+
+background:linear-gradient(135deg,#16151f,#1c1824);
+
+border:1px solid rgba(184,155,101,0.15);
+
+padding:45px;
+margin:60px 0;
+
+border-radius:4px;
+
+box-shadow:0 10px 40px rgba(0,0,0,0.45);
+
+}
+
+.letter p{
+
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+
+font-size:27px;
+
+color:#d8cfc4;
+
+margin-bottom:18px;
+
+}
+
+/* TIME */
+
+.time{
+
+text-align:center;
+
+font-family:'Cinzel',serif;
+
+font-size:24px;
+letter-spacing:0.2em;
+
+color:var(--gold);
+
+margin:40px 0;
+
+}
+
+/* SCENE */
+
+.scene{
+
+text-align:center;
+
+font-style:italic;
+font-size:15px;
+
+color:var(--text-dim);
+
+margin:45px 0;
+
+}
+
+/* DIVIDER */
+
+.divider{
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+margin:60px 0;
+
+color:rgba(184,155,101,0.4);
+
+}
+
+.divider::before,
+.divider::after{
+
+content:'';
+width:120px;
+height:1px;
+
+background:rgba(184,155,101,0.15);
+
+margin:0 20px;
+
+}
+
+/* FINAL */
+
+.final{
+
+font-size:34px;
+font-style:italic;
+
+text-align:center;
+
+color:var(--white);
+
+margin:80px 0 50px;
+
+}
+
+/* NEXT */
+
+.next{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-top:80px;
+
+border-top:1px solid rgba(255,255,255,0.06);
+
+padding-top:40px;
+
+}
+
+.next a{
+
+text-decoration:none;
+
+font-family:'Cinzel',serif;
+font-size:12px;
+
+letter-spacing:0.25em;
+text-transform:uppercase;
+
+color:var(--gold);
+
+transition:0.3s;
+
+}
+
+.next a:hover{
+
+color:var(--white);
+
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.chapter{
+font-size:50px;
+}
+
+.story{
+font-size:19px;
+}
+
+.quote{
+font-size:23px;
+}
+
+.letter p{
+font-size:22px;
+}
+
+.final{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="rain"></canvas>
+
+<!-- AUDIO -->
+
+<audio id="bg-audio" loop preload="auto">
+
+<source src="../assets/audio/rain-night.mp3" type="audio/mpeg">
+
+</audio>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="series">
+Midnight Letters
+</div>
+
+<h1 class="chapter">
+2:13 AM
+</h1>
+
+<p class="subtitle">
+Some absences feel louder than entire conversations.
+</p>
+
+</div>
+
+<!-- STORY -->
+
+<div class="story">
+
+<div class="quote">
+Some absences hurt more than a hundred conversations ever could.
+</div>
+
+<p>
+The third letter arrived three nights later.
+</p>
+
+<p>
+And somehow...
+those three nights felt longer than entire months.
+</p>
+
+<p>
+Aarush never realized how quickly people could become emotionally dependent on something invisible.
+</p>
+
+<div class="scene">
+— Three nights of silence.
+</div>
+
+<p>
+Every night after work,
+he returned to Apartment 306 with the same nervous heartbeat.
+</p>
+
+<p>
+Same expectation.
+Same hope.
+</p>
+
+<p>
+But the hallway remained empty.
+</p>
+
+<p>
+No envelope.
+No handwriting.
+No sign of her.
+</p>
+
+<p>
+And strangely...
+the absence affected him more than it should have.
+</p>
+
+<p>
+Because now silence felt heavier after someone had interrupted it.
+</p>
+
+<div class="divider">
+✦
+</div>
+
+<p>
+The rain continued almost every night that week.
+</p>
+
+<p>
+Cold water rolled endlessly across the apartment windows while distant city lights blurred beneath fog and thunder.
+</p>
+
+<p>
+Aarush spent most evenings sitting near the window holding the previous letters carefully in his hands.
+</p>
+
+<p>
+Reading them again.
+And again.
+</p>
+
+<div class="letter">
+
+<p>
+“You always stare at the rain before entering the building.”
+</p>
+
+<p>
+“You look like someone waiting for life to begin again.”
+</p>
+
+</div>
+
+<p>
+Nobody had ever described him so accurately before.
+</p>
+
+<p>
+Not even people who had known him for years.
+</p>
+
+<p>
+And maybe that was the frightening part.
+</p>
+
+<p>
+This unknown girl somehow understood emotions he never explained aloud.
+</p>
+
+<div class="quote">
+Being known by a stranger is stranger than being a stranger to everyone you know.
+</div>
+
+<p>
+At work,
+his behavior slowly changed too.
+</p>
+
+<p>
+He checked his phone constantly.
+Lost focus during meetings.
+Stopped leaving immediately after office hours.
+</p>
+
+<p>
+Sometimes he caught himself staring out the building windows while it rained outside.
+</p>
+
+<p>
+Wondering if somewhere nearby...
+she existed quietly among strangers.
+</p>
+
+<p>
+Maybe watching him again.
+</p>
+
+<div class="scene">
+— Somewhere in the city, she existed.
+</div>
+
+<p>
+That thought should have felt disturbing.
+</p>
+
+<p>
+But honestly...
+it felt comforting now.
+</p>
+
+<p>
+Because for the first time in years,
+someone noticed when he was hurting.
+</p>
+
+<p>
+Someone cared enough to write.
+</p>
+
+<div class="divider">
+✦
+</div>
+
+<p>
+Three nights later,
+Aarush finally returned home around midnight after a particularly exhausting day.
+</p>
+
+<p>
+Rainwater soaked his sleeves while thunder echoed softly across the city skyline.
+</p>
+
+<p>
+The elevator moved slowly upward through the silent building.
+</p>
+
+<div class="time">
+Floor 2.
+</div>
+
+<div class="time">
+Floor 3.
+</div>
+
+<div class="time">
+Floor 4.
+</div>
+
+<p>
+His heartbeat became nervous automatically.
+</p>
+
+<p>
+Even though he told himself not to expect anything anymore.
+</p>
+
+<p>
+The elevator doors opened.
+</p>
+
+<p>
+Silent hallway.
+Flickering light.
+Cold midnight air.
+</p>
+
+<p>
+And there it was.
+</p>
+
+<p>
+Another envelope.
+</p>
+
+<div class="scene">
+— Center of the apartment door.
+</div>
+
+<p>
+This time placed directly in the center of his apartment door.
+</p>
+
+<p>
+Aarush froze completely.
+</p>
+
+<p>
+For several seconds,
+he simply stared at it while rain echoed faintly through the building outside.
+</p>
+
+<p>
+Then slowly...
+he noticed something different.
+</p>
+
+<p>
+The envelope looked rushed.
+</p>
+
+<p>
+The handwriting slightly shaky.
+</p>
+
+<p>
+And near the corner...
+a tiny rain stain blurred part of the ink.
+</p>
+
+<p>
+Almost like whoever left it had been standing in the rain moments earlier.
+</p>
+
+<div class="quote">
+The trembling in handwriting always reveals more than the words themselves.
+</div>
+
+<p>
+A strange feeling moved through his chest.
+</p>
+
+<p>
+For the first time...
+the unknown girl stopped feeling imaginary.
+</p>
+
+<p>
+She felt real.
+</p>
+
+<p>
+Human.
+</p>
+
+<p>
+Close.
+</p>
+
+<div class="divider">
+✦
+</div>
+
+<p>
+Inside Apartment 306,
+he didn’t even remove his wet hoodie this time.
+</p>
+
+<p>
+He sat down immediately beneath the kitchen light and opened the envelope carefully.
+</p>
+
+<p>
+Another handwritten page.
+</p>
+
+<p>
+But this letter felt more personal than the others.
+</p>
+
+<p>
+Almost emotional.
+</p>
+
+<div class="letter">
+
+<p>
+“You looked sad tonight.”
+</p>
+
+<p>
+“I almost didn’t leave this letter.”
+</p>
+
+<p>
+“You looked like someone carrying too much alone.”
+</p>
+
+<p>
+“Some nights your silence feels heavier than the rain.”
+</p>
+
+<p>
+“I stood outside your door for almost five minutes tonight.”
+</p>
+
+<p>
+“I wanted to ask if you were okay.”
+</p>
+
+<p>
+“But strangers don’t ask questions like that.”
+</p>
+
+<p>
+“Maybe lonely people recognize each other easily.”
+</p>
+
+</div>
+
+<p>
+Aarush’s breathing slowed instantly.
+</p>
+
+<p>
+Because suddenly...
+this no longer sounded mysterious.
+</p>
+
+<p>
+It sounded vulnerable.
+</p>
+
+<p>
+Like the writer herself was struggling emotionally too.
+</p>
+
+<div class="quote">
+She was there. Close enough to knock. Close enough to stay.
+</div>
+
+<p>
+His chest tightened painfully.
+</p>
+
+<p>
+Because somewhere deep inside...
+he suddenly realized something dangerous.
+</p>
+
+<p>
+He wanted her to ask.
+</p>
+
+<p>
+He wanted this unknown girl to stop being a mystery.
+</p>
+
+<p>
+To knock.
+To stay.
+To exist somewhere beyond handwritten words.
+</p>
+
+<div class="time">
+2:13 AM
+</div>
+
+<p>
+Just a time.
+</p>
+
+<p>
+Nothing more.
+</p>
+
+<p>
+But somehow...
+it felt intentional.
+</p>
+
+<p>
+Like a hidden message.
+</p>
+
+<p>
+Aarush immediately looked toward the digital clock near the kitchen.
+</p>
+
+<div class="time">
+12:41 AM
+</div>
+
+<p>
+His heartbeat slowly became louder.
+</p>
+
+<p>
+Why write the time?
+</p>
+
+<p>
+Why 2:13 AM specifically?
+</p>
+
+<div class="divider">
+✦
+</div>
+
+<p>
+For the next hour,
+Aarush couldn’t focus on anything else.
+</p>
+
+<p>
+Rain continued endlessly outside while the apartment filled with cold blue shadows from distant city lights.
+</p>
+
+<div class="time">
+1:26 AM
+</div>
+
+<div class="time">
+1:48 AM
+</div>
+
+<div class="time">
+2:02 AM
+</div>
+
+<p>
+And suddenly...
+something inside him made a decision.
+</p>
+
+<p>
+At exactly 2:10 AM,
+Aarush left Apartment 306 quietly and stepped into the empty hallway.
+</p>
+
+<p>
+Cold air moved softly through the building.
+</p>
+
+<p>
+The lights flickered faintly overhead.
+</p>
+
+<p>
+Silence.
+</p>
+
+<p>
+Complete silence.
+</p>
+
+<div class="time">
+Then...
+</div>
+
+<div class="time">
+2:13 AM
+</div>
+
+<p>
+The elevator dinged softly at the far end of the hallway.
+</p>
+
+<p>
+Aarush’s heartbeat stopped.
+</p>
+
+<p>
+Slowly...
+the elevator doors began opening.
+</p>
+
+<div class="final">
+And someone stood inside.
+</div>
+
+<!-- NEXT -->
+
+<div class="next">
+
+<a href="chapter2.html">
+← Chapter 2
+</a>
+
+<a href="chapter4.html">
+Chapter 4 →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* AUTO AUDIO */
+
+window.addEventListener('load',()=>{
+
+const audio=document.getElementById('bg-audio');
+
+audio.volume=0.45;
+
+const startAudio=()=>{
+
+const promise=audio.play();
+
+if(promise!==undefined){
+
+promise.then(()=>{
+
+document.body.classList.add('loaded');
+
+}).catch(()=>{
+
+const unlock=()=>{
+
+audio.play();
+
+document.body.classList.add('loaded');
+
+};
+
+document.addEventListener('mousemove',unlock,{once:true});
+
+document.addEventListener('touchstart',unlock,{once:true});
+
+document.addEventListener('scroll',unlock,{once:true});
+
+document.addEventListener('click',unlock,{once:true});
+
+});
+
+}
+
+};
+
+startAudio();
+
+});
+
+/* RAIN */
+
+const canvas=document.getElementById('rain');
+
+const ctx=canvas.getContext('2d');
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let rainDrops=[];
+
+for(let i=0;i<120;i++){
+
+rainDrops.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+
+l:Math.random()*20+10,
+s:Math.random()*4+2,
+
+o:Math.random()*0.2+0.05
+
+});
+
+}
+
+function rain(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+rainDrops.forEach(d=>{
+
+ctx.beginPath();
+
+ctx.moveTo(d.x,d.y);
+
+ctx.lineTo(d.x-d.l*0.2,d.y+d.l);
+
+ctx.strokeStyle=`rgba(140,170,200,${d.o})`;
+
+ctx.lineWidth=1;
+
+ctx.stroke();
+
+d.y+=d.s;
+
+if(d.y>canvas.height){
+
+d.y=-20;
+d.x=Math.random()*canvas.width;
+
+}
+
+});
+
+requestAnimationFrame(rain);
+
+}
+
+rain();
+
+window.addEventListener('resize',()=>{
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+});
+
+</script>
+
+</body>
+  </html>
